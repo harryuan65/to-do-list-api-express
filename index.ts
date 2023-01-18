@@ -1,14 +1,14 @@
-const express = require("express");
+import express, { Express, Request, Response } from "express";
 
 if (process.env.ENV !== "production") {
   const dotenv = require("dotenv");
   dotenv.config();
 }
 
-const app = express();
+const app: Express = express();
 
-const PORT = process.env.PORT || 3003
-app.get("/", (req, res) => {
+const PORT = process.env.PORT || 3003;
+app.get("/", (req: Request, res: Response) => {
   res.send(`Hello World ${process.env.PORT}`)
 })
 
