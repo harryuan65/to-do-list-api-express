@@ -18,4 +18,5 @@ if (!Database.isInitialized) {
     }).catch(error => console.log(error))
 }
 
-export default Database;
+const Manager = Database.manager
+export { Manager, Database };
