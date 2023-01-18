@@ -1,4 +1,5 @@
 import express, { Express, Request, Response } from "express";
+import router from "./router";
 
 if (process.env.ENV !== "production") {
   const dotenv = require("dotenv");
@@ -8,8 +9,9 @@ if (process.env.ENV !== "production") {
 const app: Express = express();
 
 const PORT = process.env.PORT || 3003;
+app.use(router);
 app.get("/", (req: Request, res: Response) => {
-  res.send(`Hello World ${process.env.PORT}`)
+  res.send("Healthy")
 })
 
 app.listen(PORT, () => {
