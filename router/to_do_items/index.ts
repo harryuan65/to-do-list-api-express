@@ -16,8 +16,17 @@ router.post("/", async (req: Request, res: Response ) => {
   res.send(JSON.stringify(savedItem, null, 2))
 })
 
-router.patch("/:id", (req: Request<IToDoItemData>, res: Response ) => {
-  res.send(`patching to do items${req.params.id}`)
+router.patch("/:id", async (req: Request<IToDoItemData>, res: Response ) => {
+  const id = req.params.id;
+  const item = await Manager.findOne(ToDoItem, {where: {id}});
+
+  if(item) {
+    const body = req.body;
+    await Manager.update(ToDoItem, item, body);
+    res.send("OK");
+  } else {
+    res.status(404).send(`id: ${id} Not found!`)
+  }
 })
 
 router.delete("/:id", (req: Request<IToDoItemData>, res: Response ) => {
