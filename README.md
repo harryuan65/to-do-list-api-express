@@ -2,6 +2,8 @@
 
 This is a simple to-do list api server using Express & Typescript.
 
+[To do lists - Main Repo](https://github.com/harryuan65/To-do-Lists)
+
 ## Environment
 
 | env        | version  |
