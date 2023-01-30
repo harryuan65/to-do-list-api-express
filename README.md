@@ -17,6 +17,13 @@ yarn add --dev typescript @types/express @types/node
 npx tsc --init
 ```
 
+## TypeORM
+
+```bash
+yarn add typeorm
+npx typeorm init --name ToDoList --database sqlite
+```
+
 ## Custom root path
 
 [Ref](https://www.tpisoftware.com/tpu/articleDetails/2780)
