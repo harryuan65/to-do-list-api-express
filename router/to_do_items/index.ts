@@ -11,9 +11,9 @@ router.get('/', async (_req: Request, res: Response) => {
 
 router.post('/', async (req: Request, res: Response) => {
   const itemData = req.body as IToDoItemBody;
-  const savedItem = await new ToDoItemService().createToDoItem(itemData);
+  const result = await new ToDoItemService().createToDoItem(itemData);
 
-  res.json(savedItem);
+  res.json(result.output);
 });
 
 router.patch('/:id', async (req: Request<{ id: number }>, res: Response) => {

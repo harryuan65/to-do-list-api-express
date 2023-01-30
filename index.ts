@@ -10,7 +10,7 @@ if (process.env.ENV !== 'production') {
 
 const app: Express = express();
 
-const PORT = process.env.PORT || 3003;
+const PORT = process.env.PORT || 3004;
 // application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 // application/json
@@ -21,6 +21,15 @@ app.use((req: Request, res: Response, next) => {
   next();
 });
 
+app.use((req: Request, res: Response, next) => {
+  res.setHeader('access-control-allow-origin', '*');
+  res.setHeader(
+    'access-control-allow-methods',
+    'POST, GET, PUT, PATCH, DELETE, OPTIONS'
+  );
+  res.setHeader('access-control-allow-headers', 'Content-Type');
+  next();
+});
 app.use(router);
 
 app.get('/', (req: Request, res: Response) => {
