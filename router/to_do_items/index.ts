@@ -1,44 +1,35 @@
-import express, { Request, Response } from "express";
-import {Manager} from "../../models/database";
-import { ToDoItem } from "../../models/entity/ToDoItem";
-import { IToDoItemData, ToDoItemStatus } from "../../types/ToDoItem";
+import express, { Request, Response } from 'express';
+import ToDoItemService from '../../services/ToDoItemService';
+import { IToDoItemBody } from '../../types/ToDoItem';
 const router = express.Router();
 
-router.get("/", async (req: Request, res: Response ) => {
-  const items = await Manager.find(ToDoItem);
-  res.send(JSON.stringify(items, null, 2))
-})
+router.get('/', async (_req: Request, res: Response) => {
+  const result = await new ToDoItemService().getAll();
 
-router.post("/", async (req: Request, res: Response ) => {
-  const itemData = req.body as IToDoItemData;
-  const newItem = Manager.create(ToDoItem, itemData);
-  const savedItem = await Manager.save(newItem);
-  res.send(JSON.stringify(savedItem, null, 2))
-})
+  res.json(result.output);
+});
 
-router.patch("/:id", async (req: Request<IToDoItemData>, res: Response ) => {
+router.post('/', async (req: Request, res: Response) => {
+  const itemData = req.body as IToDoItemBody;
+  const savedItem = await new ToDoItemService().createToDoItem(itemData);
+
+  res.json(savedItem);
+});
+
+router.patch('/:id', async (req: Request<{ id: number }>, res: Response) => {
   const id = req.params.id;
-  const item = await Manager.findOne(ToDoItem, {where: {id}});
+  const result = await new ToDoItemService().updateToDoById(
+    id,
+    req.body as IToDoItemBody
+  );
 
-  if(item) {
-    const body = req.body;
-    await Manager.update(ToDoItem, item, body);
-    res.send("OK");
-  } else {
-    res.status(404).send(`id: ${id} Not found!`)
-  }
-})
+  res.status(result.code).json(result);
+});
 
-router.delete("/:id", async (req: Request<IToDoItemData>, res: Response ) => {
+router.delete('/:id', async (req: Request<{ id: number }>, res: Response) => {
   const id = req.params.id;
-  const item = await Manager.findOne(ToDoItem, {where: {id}});
-
-  if(item) {
-    await Manager.delete(ToDoItem, item);
-    res.send("OK");
-  } else {
-    res.status(404).send(`id: ${id} Not found!`)
-  }
-})
+  const result = await new ToDoItemService().deleteToDoById(id);
+  res.status(result.code).json(result);
+});
 
 export default router;

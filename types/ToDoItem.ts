@@ -1,12 +1,15 @@
 enum ToDoItemStatus {
-  ACTIVE='active', DONE='done'
+  ACTIVE = 'active',
+  DONE = 'done',
 }
 
 // For server
-interface IToDoItemData {
-  id: number,
-  title: string,
-  status: ToDoItemStatus
+interface IToDoItem {
+  id: number;
+  title: string;
+  status: ToDoItemStatus;
 }
 
-export {type IToDoItemData, ToDoItemStatus}
+interface IToDoItemBody extends Omit<IToDoItem, 'id'> {}
+
+export { type IToDoItem, type IToDoItemBody, ToDoItemStatus };
