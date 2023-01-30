@@ -1,33 +1,21 @@
-## Express
+# To-do List Server - Express
+
+This is a simple to-do list api server using Express & Typescript.
+
+## Environment
+
+| env        | version  |
+| ---------- | -------- |
+| node       | v16.15.1 |
+| yarn       | 1.22.19  |
+| express    | 4.18.2   |
+| typescript | 4.9.4    |
+
+## Development
 
 ```bash
-yarn add express
+yarn install
+yarn dev
 ```
 
-## Dotenv
-
-```bash
-yarn add --dev dotenv
-```
-
-## Typescript
-
-```bash
-yarn add --dev typescript @types/express @types/node
-npx tsc --init
-```
-
-## TypeORM
-
-```bash
-yarn add typeorm
-npx typeorm init --name ToDoList --database sqlite
-```
-
-## Custom root path
-
-[Ref](https://www.tpisoftware.com/tpu/articleDetails/2780)
-
-## Setup
-
-[Setup Express with Typescript](https://blog.logrocket.com/how-to-set-up-node-typescript-express/)
+Server should be running on PORT 3004 by default(Or you can create a `.env` file to set the `PORT` variable).
